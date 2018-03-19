@@ -15,8 +15,8 @@ While flag = True
         tolLeft = tol
     Else
         tolLeft = tolLeft - 1
-        If tolLeft = 0 Then
-            getRowCount = i - tol + 1
+        If tolLeft <= 0 Then
+            getRowCount = i - tol + 1 + tolLeft
             flag = False
         Else
              i = i + 1
@@ -40,7 +40,7 @@ While flag = True
     If rng.Cells(1, col + i) <> "" Then
         i = i + 1
     Else
-        getColCount = i - 1
+        getColCount = i
         flag = False
     End If
     
@@ -97,7 +97,7 @@ Public Function getAllFiles(ByVal folder As String) As MList
     'loops through each file in the directory and prints their names and path
     For Each objFile In objFolder.files
         'print file name
-        output.add2 (objFile.Name)
+        output.add2 (objFile.name)
         'print file path
         output.add2 (objFile.Path)
     Next objFile
@@ -121,7 +121,7 @@ Public Sub insert_text_file(ByVal Path As String, ByRef sheet As Worksheet, ByVa
     With ActiveSheet.QueryTables.add(Connection:= _
         strTemp _
         , Destination:=Range("$A$1"))
-        .Name = "CS1_1"
+        .name = "CS1_1"
         .Refresh BackgroundQuery:=False
     End With
     ActiveWorkbook.Connections(ActiveWorkbook.Connections.count).Delete
